@@ -48,9 +48,9 @@ interface Props {
 
 function getIconByName(name: string) {
   switch (name) {
-    case 'slack':
+    case 'slack'.toLocaleUpperCase():
       return SlackImage;
-    case 'outlook':
+    case 'outlook'.toLocaleUpperCase():
       return OutlookImage;
     default:
       return JiraImage;
