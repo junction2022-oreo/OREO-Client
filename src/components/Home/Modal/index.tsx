@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import CloseImage from '../../../assets/close.png';
 import Checkbox from './Checkbox';
-import { colListState } from '../../../atom/colList';
+import { colListState, modalColListState } from '../../../atom/colList';
 
 const Dimmed = styled.div`
   position: fixed;
@@ -75,13 +75,16 @@ interface Props {
 
 function Modal(props: Props) {
   const { isShow, handleCloseModal } = props;
-  const colList = useRecoilValue(colListState);
+  const modalColList = useRecoilValue(modalColListState);
+  const setModalColList = useSetRecoilState(modalColListState);
   const setColList = useSetRecoilState(colListState);
-  const [localColList, setLocalColList] = useState(colList);
+  const [localColList, setLocalColList] = useState(modalColList);
 
   const handleSubmit = () => {
-    if (colList.every((e) => !e.selected)) return;
-    setColList([...localColList]);
+    if (modalColList.every((e) => !e.selected)) return;
+    setModalColList([...localColList]);
+    setColList(localColList.filter((e) => e.selected).map((e) => e.title));
+
     handleCloseModal();
   };
 
@@ -96,7 +99,7 @@ function Modal(props: Props) {
           </CloseButton>
         </ModalTitle>
         <ModalContent>
-          {colList.map((tool) => (
+          {modalColList.map((tool) => (
             <Checkbox title={tool.title} selected={tool.selected} {...{ localColList, setLocalColList }} />
           ))}
         </ModalContent>

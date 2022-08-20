@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const colListState = atom({
-  key: 'colListState',
+export const modalColListState = atom({
+  key: 'modalColListState',
   default: [
     { title: 'Slack', selected: true },
     { title: 'Jira', selected: false },
@@ -14,7 +14,12 @@ export const colListState = atom({
   ]
 });
 
+export const colListState = atom({
+  key: 'colListState',
+  default: ['SLACK'] as string[]
+});
+
 export const possibleColListState = atom({
   key: 'possibleColListState',
-  default: [] as string[]
+  default: ['SLACK', 'JIRA'] as string[]
 });

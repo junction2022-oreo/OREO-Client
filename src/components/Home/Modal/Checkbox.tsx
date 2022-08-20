@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { possibleColListState } from '../../../atom/colList';
 
 interface Props {
   title: string;
   selected: boolean;
   localColList: { title: string; selected: boolean }[];
-  setLocalColList(param: { title: string; selected: boolean }[]): void;
+  setLocalColList(value: { title: string; selected: boolean }[]): void;
 }
 
 const Container = styled.div`
@@ -50,24 +52,25 @@ const CheckboxInput = styled.input`
 
 function Checkbox(props: Props) {
   const { title, selected, localColList, setLocalColList } = props;
+  const possibleColList = useRecoilValue(possibleColListState);
   const [checked, setChecked] = useState(selected);
 
   const handleClick = () => {
+    if (!possibleColList.includes(title.toLocaleUpperCase())) {
+      return;
+    }
     const newChecked = !checked;
-
     const selectedCols = localColList.filter((col) => col.selected);
     if (selectedCols.length === 1 && selectedCols[0].title === title && !newChecked) {
       return;
     }
-
-    setLocalColList(
-      localColList.map((el) => {
-        if (el.title === title) {
-          return { ...el, selected: newChecked };
-        }
-        return el;
-      })
-    );
+    const newColList = localColList.map((el) => {
+      if (el.title === title) {
+        return { ...el, selected: newChecked };
+      }
+      return el;
+    });
+    setLocalColList(newColList);
 
     setChecked(newChecked);
   };

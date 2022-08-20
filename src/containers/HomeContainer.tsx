@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { , useState } from 'react';
+import { useRecoilValue,  } from 'recoil';
 import styled from 'styled-components';
-import { colListState } from '../atom/colList';
+import { colListState,  } from '../atom/colList';
 import Column from '../components/Home/Column';
 import ColumnCreator from '../components/Home/ColumnCreator';
 import Modal from '../components/Home/Modal';
@@ -19,8 +19,8 @@ function HomeContainer() {
 
   return (
     <Container>
-      {colList.map((tool) => (
-        <Column category={tool.title} />
+      {colList.map((category) => (
+        <Column category={category} />
       ))}
       <ColumnCreator handleOpenModal={() => setShow(true)} />
       <Modal isShow={isShow} handleCloseModal={() => setShow(false)} />
