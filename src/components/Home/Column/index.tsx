@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Item from '../Item';
 import SlackImage from '../../../assets/slack.png';
+import JiraImage from '../../../assets/jira.png';
+import OutlookImage from '../../../assets/outlook.png';
+
 import {
   Badge,
   ColumnBody,
@@ -12,48 +15,90 @@ import {
   ItemsWrapper,
   TodoColumnWrapper
 } from './style';
+import { changeItemStatus, getItems, ItemType } from '../../../apis/item';
 
-type ItemType = {
-  id: number;
-  title: string;
-  contents: string;
-  status: 'done' | 'todo';
-};
+// const ITEMS: ItemType[] = [
+//   {
+//     id: 1,
+//     title: 'Oreo UX PM 채널',
+//     contents:
+//       '@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.',
+//     status: 'todo'
+//   },
+//   { id: 2, title: '타이틀입니다.', contents: 'hh2', status: 'todo' },
+//   { id: 3, title: '타이틀입니다.', contents: 'hh3', status: 'todo' },
+//   { id: 4, title: '타이틀입니다.', contents: 'hh4', status: 'todo' },
+//   { id: 5, title: '타이틀입니다.', contents: 'hh5', status: 'done' },
+//   { id: 6, title: '타이틀입니다.', contents: 'hh6', status: 'done' },
+//   { id: 7, title: '타이틀입니다.', contents: 'hh7', status: 'done' },
+//   { id: 8, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
+//   { id: 9, title: '타이틀입니다.', contents: 'hh7', status: 'done' },
+//   { id: 10, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
+//   { id: 11, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
+//   { id: 12, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
+//   { id: 13, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
+//   { id: 14, title: '타이틀입니다.', contents: 'hh8', status: 'done' }
+// ];
 
-const ITEMS: ItemType[] = [
-  {
-    id: 1,
-    title: 'Oreo UX PM 채널',
-    contents:
-      '@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.',
-    status: 'todo'
-  },
-  { id: 2, title: '타이틀입니다.', contents: 'hh2', status: 'todo' },
-  { id: 3, title: '타이틀입니다.', contents: 'hh3', status: 'todo' },
-  { id: 4, title: '타이틀입니다.', contents: 'hh4', status: 'todo' },
-  { id: 5, title: '타이틀입니다.', contents: 'hh5', status: 'done' },
-  { id: 6, title: '타이틀입니다.', contents: 'hh6', status: 'done' },
-  { id: 7, title: '타이틀입니다.', contents: 'hh7', status: 'done' },
-  { id: 8, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
-  { id: 9, title: '타이틀입니다.', contents: 'hh7', status: 'done' },
-  { id: 10, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
-  { id: 11, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
-  { id: 12, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
-  { id: 13, title: '타이틀입니다.', contents: 'hh8', status: 'done' },
-  { id: 14, title: '타이틀입니다.', contents: 'hh8', status: 'done' }
-];
+interface Props {
+  category: string;
+}
 
-function Column() {
-  const [items, setItems] = useState(ITEMS);
+function getIconByName(name: string) {
+  switch (name) {
+    case 'slack':
+      return SlackImage;
+    case 'outlook':
+      return OutlookImage;
+    default:
+      return JiraImage;
+  }
+}
 
-  const handleChangeStatus = (id: number) => {
-    const newItems = items.map((e) => {
-      if (e.id === id) {
-        e.status = e.status === 'done' ? 'todo' : 'done';
+function Column(props: Props) {
+  const { category } = props;
+  const [todoItems, setTodoItems] = useState<ItemType[]>([]);
+  const [doneItems, setDoneItems] = useState<ItemType[]>([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    fetchItems(category);
+  }, [category]);
+
+  async function fetchItems(categoryName: string) {
+    const {
+      info: { todoList, doneList }
+    } = await getItems(categoryName, '20220819', '20220820');
+
+    setTodoItems(todoList);
+    setDoneItems(doneList);
+  }
+
+  const handleChangeStatus = async (type: 'todo' | 'done', feedId: number) => {
+    const items = type === 'todo' ? todoItems : doneItems;
+    const setItemsForRemove = type === 'todo' ? setTodoItems : setDoneItems;
+    const setItemsForAdd = type === 'todo' ? setDoneItems : setTodoItems;
+
+    const foundItem = items.find((item) => item.feedId === feedId);
+
+    if (!foundItem) {
+      return;
+    }
+
+    try {
+      const { returnCode } = await changeItemStatus(foundItem.feedId, !foundItem.status);
+
+      if (returnCode !== '0000') {
+        return;
       }
-      return e;
-    });
-    setItems(newItems);
+
+      setItemsForRemove((prev) => prev.filter((item) => item.feedId !== feedId));
+      setItemsForAdd((prev) =>
+        prev.concat({ ...foundItem, status: !foundItem.status }).sort((a, b) => new Date(a.writeDate).getTime() - new Date(b.writeDate).getTime())
+      );
+    } catch (e) {
+      console.debug(e);
+    }
   };
 
   return (
@@ -61,22 +106,18 @@ function Column() {
       <ColumnBody className="column-body">
         <TodoColumnWrapper className="top-box">
           <ColumnTitle className="column-title">
-            <img src={SlackImage} alt="툴 아이콘" />
-            Slack
+            <img src={getIconByName(category)} alt="" />
+            {category.slice(0, 1).toUpperCase() + category.slice(1)}
           </ColumnTitle>
           <ColumnContentWrapper className="column-content">
             <ColumnStatusTitle>
               TO DO
-              <Badge color="#EB4D36">{ITEMS.filter((item) => item.status === 'todo').length}</Badge>
+              <Badge color="#EB4D36">{todoItems.length}</Badge>
             </ColumnStatusTitle>
             <ItemsWrapper>
-              {items
-                .filter((item) => item.status === 'todo')
-                .map((item) => (
-                  <Item key={item.id} title={item.title} status={item.status} onClick={() => handleChangeStatus(item.id)}>
-                    {item.contents}
-                  </Item>
-                ))}
+              {todoItems.map((item) => (
+                <Item key={item.feedId} item={item} onClick={() => handleChangeStatus('todo', item.feedId)} />
+              ))}
             </ItemsWrapper>
           </ColumnContentWrapper>
         </TodoColumnWrapper>
@@ -84,16 +125,12 @@ function Column() {
           <ColumnContentWrapper>
             <ColumnStatusTitle>
               DONE
-              <Badge color="#0AC765">{ITEMS.filter((item) => item.status === 'done').length}</Badge>
+              <Badge color="#0AC765">{doneItems.length}</Badge>
             </ColumnStatusTitle>
             <ItemsWrapper>
-              {items
-                .filter((item) => item.status === 'done')
-                .map((item) => (
-                  <Item key={item.id} title={item.title} status={item.status} onClick={() => handleChangeStatus(item.id)}>
-                    {item.contents}
-                  </Item>
-                ))}
+              {doneItems.map((item) => (
+                <Item key={item.feedId} item={item} onClick={() => handleChangeStatus('done', item.feedId)} />
+              ))}
             </ItemsWrapper>
           </ColumnContentWrapper>
         </DoneColumnWrapper>

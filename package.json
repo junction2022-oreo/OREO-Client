@@ -14,6 +14,7 @@
     "@mui/material": "^5.10.1",
     "@types/material-ui": "^0.21.12",
     "@vitejs/plugin-react": "^2.0.0",
+    "dayjs": "^1.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

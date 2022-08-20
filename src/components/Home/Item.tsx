@@ -1,10 +1,11 @@
+import dayjs from 'dayjs';
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import { ItemType } from '../../apis/item';
 import checkImage from '../../assets/check.png';
 
 type Props = PropsWithChildren<{
-  title: string;
-  status: 'todo' | 'done';
+  item: ItemType;
   onClick: () => void;
 }>;
 
@@ -53,7 +54,7 @@ const Checkbox = styled.input`
 
 const ProfileWrapper = styled.div``;
 
-const Profile = styled.div`
+const Profile = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -122,48 +123,30 @@ const ContentBodyText = styled(LineClampText)`
   text-align: left;
 `;
 
-const ContentFooter = styled.div``;
-
-const TagWrapper = styled.div``;
-
-const Tag = styled.span`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14px;
-  text-align: left;
-
-  background: #f1f4f6;
-  border-radius: 4px;
-  padding: 3px 6px;
-`;
-
 function Item(props: Props) {
-  const { children, onClick, status, title } = props;
+  const { onClick, item } = props;
+  const { subject, text, status, name, writeDate, imgUrl } = item;
+
   return (
     <Button type="button" onClick={onClick}>
       <CheckboxWrapper>
-        <Checkbox type="checkbox" checked={status === 'done'} />
+        <Checkbox type="checkbox" checked={status} onChange={() => {}} />
         <Label className="checkbox-label">
           <img width={10} height={8.5} src={checkImage} alt="" />
         </Label>
       </CheckboxWrapper>
       <ProfileWrapper>
-        <Profile />
+        <Profile src={imgUrl} />
       </ProfileWrapper>
       <ContentWrapper>
         <ContentHeader>
-          <Name>Hana</Name>
-          <Time>08.20 6:52 PM</Time>
+          <Name>{name}</Name>
+          <Time>{dayjs(writeDate).format('MM DD HH:mm A')}</Time>
         </ContentHeader>
         <ContentBody>
-          <ContentBodyTitle lineClamp={1}>{title}</ContentBodyTitle>
-          <ContentBodyText lineClamp={2}>{children}</ContentBodyText>
+          <ContentBodyTitle lineClamp={1}>{subject}</ContentBodyTitle>
+          <ContentBodyText lineClamp={2}>{text}</ContentBodyText>
         </ContentBody>
-        <ContentFooter>
-          <TagWrapper>
-            <Tag># OREO UX PM 채널</Tag>
-          </TagWrapper>
-        </ContentFooter>
       </ContentWrapper>
     </Button>
   );

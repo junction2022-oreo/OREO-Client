@@ -4,7 +4,7 @@ import Column from '../components/Home/Column';
 import ColumnCreator from '../components/Home/ColumnCreator';
 import Modal from '../components/Home/Modal';
 
-const COLUMN_LIST = [1, 2, 3, 4, 5];
+const CATEGORY_LIST = ['slack', 'jira'];
 
 const Container = styled.div`
   padding: 60px;
@@ -18,8 +18,8 @@ function HomeContainer() {
 
   return (
     <Container>
-      {COLUMN_LIST.map(() => (
-        <Column />
+      {CATEGORY_LIST.map((category) => (
+        <Column category={category} />
       ))}
       <ColumnCreator handleOpenModal={() => setShow(true)} />
       <Modal isShow={isShow} handleCloseModal={() => setShow(false)} />

@@ -48,7 +48,10 @@ export const ColumnStatusTitle = styled.div`
   color: #121212;
 `;
 
-export const ItemsWrapper = styled.div``;
+export const ItemsWrapper = styled.div`
+  max-height: 360px;
+  overflow: scroll;
+`;
 
 export const Badge = styled.span<{ color: string }>`
   margin-left: 8px;
