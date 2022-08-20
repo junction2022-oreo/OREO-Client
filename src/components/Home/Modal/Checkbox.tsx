@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { possibleColListState } from '../../../atom/colList';
+import checkImage from '../../../assets/check.png';
 
 type ColListType = { title: string; selected: boolean }[];
 
@@ -31,25 +32,15 @@ const Label = styled.label`
   justify-content: center;
   align-items: center;
   border: 1px solid #b9b9b9;
-  border-radius: 50%;
+  border-radius: 4px;
   margin-right: 6px;
-`;
-
-const Dot = styled.div`
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #f1f4f6;
 `;
 
 const CheckboxInput = styled.input`
   display: none;
-  &:checked + .tool-checkbox-label {
+  &:checked + .checkbox-label {
     border: none;
     background-color: #2385f8;
-    .tool-checkbox-label-dot {
-      background-color: #fff;
-    }
   }
 `;
 
@@ -82,8 +73,8 @@ function Checkbox(props: Props) {
     <Container>
       <CheckboxWrapper onClick={handleClick}>
         <CheckboxInput type="checkbox" checked={checked} />
-        <Label className="tool-checkbox-label">
-          <Dot className="tool-checkbox-label-dot" />
+        <Label className="checkbox-label">
+          <img width={10} height={8.5} src={checkImage} alt="" />
         </Label>
         <Title>{title}</Title>
       </CheckboxWrapper>

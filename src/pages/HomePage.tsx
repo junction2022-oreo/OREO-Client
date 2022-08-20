@@ -24,14 +24,14 @@ export default function HomePage() {
             <RadioLabel className="date-radio-label">
               <RadioDot />
             </RadioLabel>
-            <div>Daily</div>
+            <div>Day</div>
           </RadioWrapper>
           <RadioWrapper onClick={() => setSelectedDate('weekly')}>
             <RadioInput type="radio" name="dateType" checked={selectedDate === 'weekly'} />
             <RadioLabel className="date-radio-label">
               <RadioDot />
             </RadioLabel>
-            <div>Weekly</div>
+            <div>Week</div>
           </RadioWrapper>
         </SwitchWrapper>
       </HeaderWrapper>
