@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PlusImage from '../../assets/plus.png';
 
-const ColumnCreatorWrapper = styled.div`
+const ColumnCreatorWrapper = styled.button`
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -16,18 +16,18 @@ const ColumnCreatorWrapper = styled.div`
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   background-color: #fff;
-  & > button {
-    all: unset;
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
-function ColumnCreator() {
+interface Props {
+  handleOpenModal: () => void;
+}
+
+function ColumnCreator(props: Props) {
+  const { handleOpenModal } = props;
   return (
-    <ColumnCreatorWrapper>
-      <button type="button">
-        <img src={PlusImage} width={28} height={28} alt="" />
-      </button>
+    <ColumnCreatorWrapper type="button" onClick={handleOpenModal}>
+      <img src={PlusImage} width={28} height={28} alt="" />
     </ColumnCreatorWrapper>
   );
 }
