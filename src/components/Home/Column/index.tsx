@@ -125,7 +125,7 @@ function Column(props: Props) {
           <ColumnContentWrapper>
             <ColumnStatusTitle>
               DONE
-              <Badge color="#0AC765">{doneItems.length}</Badge>
+              <Badge color="#2385F8">{doneItems.length}</Badge>
             </ColumnStatusTitle>
             <ItemsWrapper>
               {doneItems.map((item) => (

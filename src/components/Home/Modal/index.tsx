@@ -55,7 +55,7 @@ const Button = styled.button`
   width: 100%;
   margin-top: 26px;
   padding: 12px 0;
-  background: #0ac765;
+  background: #2385f8;
   color: #ffffff;
   border-radius: 4px;
   font-family: SF Pro Display;
