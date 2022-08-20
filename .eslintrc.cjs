@@ -15,6 +15,15 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'react/jsx-props-no-spreading': [
+      0,
+      {
+        html: 'ignore',
+        custom: 'ignore',
+        explicitSpread: 'ignore',
+        exceptions: []
+      }
+    ],
     'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/jsx-one-expression-per-line': [0, { allow: 'literal' }],
     'import/no-unresolved': 0,

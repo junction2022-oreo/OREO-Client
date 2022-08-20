@@ -90,11 +90,23 @@ const ContentBody = styled.div`
   text-align: left;
   width: 100%;
   max-height: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
-const ContentBodyTitle = styled.div`
+const LineClampText = styled.div<{ lineClamp: number }>`
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: ${(props) => props.lineClamp};
+  -webkit-box-orient: vertical;
+  box-sizing: border-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  text-align: left;
+  overflow-wrap: break-word;
+  line-height: 1.2;
+  text-align: left;
+`;
+
+const ContentBodyTitle = styled(LineClampText)`
   color: #121212;
   font-size: 14px;
   font-weight: 500;
@@ -102,7 +114,7 @@ const ContentBodyTitle = styled.div`
   text-align: left;
 `;
 
-const ContentBodyText = styled.div`
+const ContentBodyText = styled(LineClampText)`
   color: #7a7a7a;
   font-size: 14px;
   font-weight: 400;
@@ -144,8 +156,8 @@ function Item(props: Props) {
           <Time>08.20 6:52 PM</Time>
         </ContentHeader>
         <ContentBody>
-          <ContentBodyTitle>{title}</ContentBodyTitle>
-          <ContentBodyText>{children}</ContentBodyText>
+          <ContentBodyTitle lineClamp={1}>{title}</ContentBodyTitle>
+          <ContentBodyText lineClamp={2}>{children}</ContentBodyText>
         </ContentBody>
         <ContentFooter>
           <TagWrapper>
