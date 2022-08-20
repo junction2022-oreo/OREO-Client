@@ -8,7 +8,11 @@ type ItemType = {
 };
 
 const ITEMS: ItemType[] = [
-  { id: 1, contents: 'hh1', status: 'todo' },
+  {
+    id: 1,
+    contents: '@seungmi 와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.와이어프레임 작업 부탁드려요, 오늘 오후까지 부탁드립니다.',
+    status: 'todo'
+  },
   { id: 2, contents: 'hh2', status: 'todo' },
   { id: 3, contents: 'hh3', status: 'todo' },
   { id: 4, contents: 'hh4', status: 'todo' },
@@ -40,7 +44,7 @@ function Column() {
           {items
             .filter((item) => item.status === 'todo')
             .map((item) => (
-              <Item key={item.id} onClick={() => handleChangeStatus(item.id)}>
+              <Item key={item.id} status={item.status} onClick={() => handleChangeStatus(item.id)}>
                 {item.contents}
               </Item>
             ))}
@@ -50,7 +54,7 @@ function Column() {
           {items
             .filter((item) => item.status === 'done')
             .map((item) => (
-              <Item key={item.id} onClick={() => handleChangeStatus(item.id)}>
+              <Item key={item.id} status={item.status} onClick={() => handleChangeStatus(item.id)}>
                 {item.contents}
               </Item>
             ))}
