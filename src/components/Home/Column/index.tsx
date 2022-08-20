@@ -44,6 +44,7 @@ interface Props {
   category: string;
 }
 
+<<<<<<< HEAD
 function getIconByName(name: string) {
   switch (name) {
     case 'slack':
@@ -54,6 +55,10 @@ function getIconByName(name: string) {
       return JiraImage;
   }
 }
+=======
+function Column({ category }: { category: string }) {
+  const [items, setItems] = useState(ITEMS);
+>>>>>>> c48da67 (feat: 모달-컬럼 개발)
 
 function Column(props: Props) {
   const { category } = props;
@@ -106,8 +111,13 @@ function Column(props: Props) {
       <ColumnBody className="column-body">
         <TodoColumnWrapper className="top-box">
           <ColumnTitle className="column-title">
+<<<<<<< HEAD
             <img src={getIconByName(category)} alt="" />
             {category.slice(0, 1).toUpperCase() + category.slice(1)}
+=======
+            <img src={SlackImage} alt="툴 아이콘" />
+            {category}
+>>>>>>> c48da67 (feat: 모달-컬럼 개발)
           </ColumnTitle>
           <ColumnContentWrapper className="column-content">
             <ColumnStatusTitle>

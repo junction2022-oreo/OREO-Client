@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import CloseImage from '../../../assets/close.png';
 import Checkbox from './Checkbox';
+import { colListState } from '../../../atom/colList';
 
 const Dimmed = styled.div`
   position: fixed;
@@ -66,17 +68,6 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const TOOL_LIST = [
-  { title: 'Slack', selected: true },
-  { title: 'Jira', selected: true },
-  { title: 'Outlook', selected: true },
-  { title: 'Excel', selected: true },
-  { title: 'Powerpoint', selected: true },
-  { title: 'Figma', selected: true },
-  { title: 'Notion', selected: true },
-  { title: 'Wiki', selected: true }
-];
-
 interface Props {
   isShow: boolean;
   handleCloseModal: () => void;
@@ -84,6 +75,16 @@ interface Props {
 
 function Modal(props: Props) {
   const { isShow, handleCloseModal } = props;
+  const colList = useRecoilValue(colListState);
+  const setColList = useSetRecoilState(colListState);
+  const [localColList, setLocalColList] = useState(colList);
+
+  const handleSubmit = () => {
+    if (colList.every((e) => !e.selected)) return;
+    setColList([...localColList]);
+    handleCloseModal();
+  };
+
   return isShow ? (
     <>
       <Dimmed />
@@ -95,11 +96,11 @@ function Modal(props: Props) {
           </CloseButton>
         </ModalTitle>
         <ModalContent>
-          {TOOL_LIST.map((tool) => (
-            <Checkbox title={tool.title} selected={tool.selected} />
+          {colList.map((tool) => (
+            <Checkbox title={tool.title} selected={tool.selected} {...{ localColList, setLocalColList }} />
           ))}
         </ModalContent>
-        <Button>OK</Button>
+        <Button onClick={handleSubmit}>OK</Button>
       </ModalContainer>
     </>
   ) : null;

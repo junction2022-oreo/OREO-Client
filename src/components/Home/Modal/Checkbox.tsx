@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
   title: string;
   selected: boolean;
+  localColList: { title: string; selected: boolean }[];
+  setLocalColList(param: { title: string; selected: boolean }[]): void;
 }
 
 const Container = styled.div`
@@ -47,12 +49,33 @@ const CheckboxInput = styled.input`
 `;
 
 function Checkbox(props: Props) {
-  const { title, selected } = props;
+  const { title, selected, localColList, setLocalColList } = props;
+  const [checked, setChecked] = useState(selected);
+
+  const handleClick = () => {
+    const newChecked = !checked;
+
+    const selectedCols = localColList.filter((col) => col.selected);
+    if (selectedCols.length === 1 && selectedCols[0].title === title && !newChecked) {
+      return;
+    }
+
+    setLocalColList(
+      localColList.map((el) => {
+        if (el.title === title) {
+          return { ...el, selected: newChecked };
+        }
+        return el;
+      })
+    );
+
+    setChecked(newChecked);
+  };
 
   return (
     <Container>
-      <CheckboxWrapper>
-        <CheckboxInput type="checkbox" checked={selected} />
+      <CheckboxWrapper onClick={handleClick}>
+        <CheckboxInput type="checkbox" checked={checked} />
         <Label className="tool-checkbox-label">
           <Dot className="tool-checkbox-label-dot" />
         </Label>
