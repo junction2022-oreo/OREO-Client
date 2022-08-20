@@ -5,9 +5,7 @@ import ColumnCreator from '../components/Home/ColumnCreator';
 
 const COLUMN_LIST = [1, 2, 3, 4, 5];
 
-const Container = styled.div`
-  border: 1px solid black;
-`;
+const Container = styled.div``;
 
 function HomeContainer() {
   return (
