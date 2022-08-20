@@ -3,11 +3,14 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { possibleColListState } from '../../../atom/colList';
 
+type ColListType = { title: string; selected: boolean }[];
+
 interface Props {
   title: string;
   selected: boolean;
   localColList: { title: string; selected: boolean }[];
-  setLocalColList(value: { title: string; selected: boolean }[]): void;
+  // eslint-disable-next-line no-unused-vars
+  setLocalColList(value: ColListType): void;
 }
 
 const Container = styled.div`

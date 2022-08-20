@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Item from '../Item';
 import SlackImage from '../../../assets/slack.png';
 import JiraImage from '../../../assets/jira.png';
@@ -16,6 +17,7 @@ import {
   TodoColumnWrapper
 } from './style';
 import { changeItemStatus, getItems, ItemType } from '../../../apis/item';
+import switchState from '../../../atom/switch';
 
 // const ITEMS: ItemType[] = [
 //   {
@@ -59,16 +61,22 @@ function Column(props: Props) {
   const { category } = props;
   const [todoItems, setTodoItems] = useState<ItemType[]>([]);
   const [doneItems, setDoneItems] = useState<ItemType[]>([]);
+  const selectedDate = useRecoilValue(switchState);
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     fetchItems(category);
-  }, [category]);
+  }, [category, selectedDate]);
 
   async function fetchItems(categoryName: string) {
+    let [startDate, endDate] = ['20220819', '20220820'];
+    if (selectedDate === 'weekly') {
+      startDate = '20220813';
+      endDate = '20220820';
+    }
     const {
       info: { todoList, doneList }
-    } = await getItems(categoryName, '20220819', '20220820');
+    } = await getItems(categoryName, startDate, endDate);
 
     setTodoItems(todoList);
     setDoneItems(doneList);

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import TitleImage from '../assets/mention-zip.png';
+import switchState from '../atom/switch';
 import HomeContainer from '../containers/HomeContainer';
 import { HeaderWrapper, HomePageWrapper, RadioDot, RadioInput, RadioLabel, RadioWrapper, SwitchWrapper, TitleImageWrapper } from './style';
 
-type SelectedDate = 'weekly' | 'daily';
-
 export default function HomePage() {
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>('daily');
+  // const [selectedDate, setSelectedDate] = useState<SelectedDate>('daily');
+
+  const selectedDate = useRecoilValue(switchState);
+  const setSelectedDate = useSetRecoilState(switchState);
 
   return (
     <HomePageWrapper>
