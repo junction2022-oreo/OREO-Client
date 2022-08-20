@@ -39,7 +39,7 @@ const CheckboxInput = styled.input`
   display: none;
   &:checked + .tool-checkbox-label {
     border: none;
-    background-color: #0ac765;
+    background-color: #2385f8;
     .tool-checkbox-label-dot {
       background-color: #fff;
     }

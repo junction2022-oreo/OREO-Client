@@ -44,7 +44,7 @@ const Checkbox = styled.input`
 
   &:checked + .checkbox-label {
     border: none;
-    background-color: #0ac765;
+    background-color: #2385f8;
 
     img {
       display: inline;

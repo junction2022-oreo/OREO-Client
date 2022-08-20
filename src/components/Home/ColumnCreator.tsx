@@ -12,7 +12,7 @@ const ColumnCreatorWrapper = styled.button`
   align-items: center;
   width: 84px;
   height: 84px;
-  border: 4px solid #0ac765;
+  border: 4px solid #2385f8;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   background-color: #fff;
