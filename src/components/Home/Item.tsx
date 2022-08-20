@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import checkImage from '../../assets/check.png';
 
 type Props = PropsWithChildren<{
+  title: string;
   status: 'todo' | 'done';
   onClick: () => void;
 }>;
@@ -87,6 +88,26 @@ const ContentBody = styled.div`
   font-weight: 400;
   line-height: 17px;
   text-align: left;
+  width: 100%;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ContentBodyTitle = styled.div`
+  color: #121212;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+`;
+
+const ContentBodyText = styled.div`
+  color: #7a7a7a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
 `;
 
 const ContentFooter = styled.div``;
@@ -105,7 +126,7 @@ const Tag = styled.span`
 `;
 
 function Item(props: Props) {
-  const { children, onClick, status } = props;
+  const { children, onClick, status, title } = props;
   return (
     <Button type="button" onClick={onClick}>
       <CheckboxWrapper>
@@ -122,7 +143,10 @@ function Item(props: Props) {
           <Name>Hana</Name>
           <Time>08.20 6:52 PM</Time>
         </ContentHeader>
-        <ContentBody>여기에 아이템 내용이 들어갈 것임 {children}</ContentBody>
+        <ContentBody>
+          <ContentBodyTitle>{title}</ContentBodyTitle>
+          <ContentBodyText>{children}</ContentBodyText>
+        </ContentBody>
         <ContentFooter>
           <TagWrapper>
             <Tag># OREO UX PM 채널</Tag>
