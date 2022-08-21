@@ -6,6 +6,7 @@ export type ItemType = {
   subject: string;
   text: string;
   writeDate: string;
+  redirectUrl?: string;
 };
 
 export const getItems = (
@@ -29,7 +30,7 @@ export const changeItemStatus = (
   feedId: number,
   check: boolean
 ): Promise<{
-  returnCode: '4002' | '0000';
+  returnCode: '4002' | '0000' | '9999';
 }> =>
   fetch(`https://donelist.ga/api/feed`, {
     method: 'PUT',

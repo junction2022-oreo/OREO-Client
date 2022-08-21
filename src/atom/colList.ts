@@ -21,5 +21,5 @@ export const colListState = atom({
 
 export const possibleColListState = atom({
   key: 'possibleColListState',
-  default: ['Slack', 'Jira'] as string[]
+  default: ['Slack', 'Jira', 'Outlook'] as string[]
 });

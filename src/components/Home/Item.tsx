@@ -125,10 +125,18 @@ const ContentBodyText = styled(LineClampText)`
 
 function Item(props: Props) {
   const { onClick, item } = props;
-  const { subject, text, status, name, writeDate, imgUrl } = item;
+  const { subject, text, status, name, writeDate, imgUrl, redirectUrl } = item;
+
+  const handleClick = () => {
+    // eslint-disable-next-line no-restricted-globals
+    if (!status) {
+      window.open(redirectUrl || 'https://oreo-2om8401.slack.com/archives/C03UJVAJB52/p1661044054936519');
+    }
+    onClick();
+  };
 
   return (
-    <Button type="button" onClick={onClick}>
+    <Button type="button" onClick={handleClick}>
       <CheckboxWrapper>
         <Checkbox type="checkbox" checked={status} onChange={() => {}} />
         <Label className="checkbox-label">
