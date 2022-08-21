@@ -62,6 +62,6 @@ export const Badge = styled.span<{ color: string }>`
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
-  padding: 2px 6px;
+  padding: 2px 6px 1px 6px;
   border-radius: 30px;
 `;

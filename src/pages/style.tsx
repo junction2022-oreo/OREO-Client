@@ -3,8 +3,38 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.span`
   display: flex;
   align-items: center;
-  margin: 65px 0 0 60px;
+  justify-content: space-between;
+  margin: 60px 60px 0 60px;
   gap: 30px;
+`;
+
+export const LeftWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const RightWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-top: 8px;
+    text-align: center;
+    font-family: SF Pro Display;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #7a7a7a;
+  }
+`;
+
+export const HeaderProfileWrapper = styled.div`
+  img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: skyblue;
+  }
 `;
 
 export const TitleImageWrapper = styled.div`
@@ -59,4 +89,5 @@ export const HomePageWrapper = styled.div``;
 
 export const SwitchWrapper = styled.div`
   display: flex;
+  margin-left: 30px;
 `;
