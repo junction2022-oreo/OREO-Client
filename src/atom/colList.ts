@@ -16,10 +16,10 @@ export const modalColListState = atom({
 
 export const colListState = atom({
   key: 'colListState',
-  default: ['SLACK'] as string[]
+  default: ['Slack'] as string[]
 });
 
 export const possibleColListState = atom({
   key: 'possibleColListState',
-  default: ['SLACK', 'JIRA'] as string[]
+  default: ['Slack', 'Jira'] as string[]
 });
