@@ -2,7 +2,7 @@ const getCategory = (): Promise<{
   returnCode: string;
   info: string[];
 }> =>
-  fetch(`https://donelist.ga/category`, {
+  fetch(`https://donelist.ga/api/category`, {
     method: 'GET',
     headers: {
       'X-MID': '7777'

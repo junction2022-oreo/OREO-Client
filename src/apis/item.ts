@@ -18,7 +18,7 @@ export const getItems = (
     doneList: ItemType[];
   };
 }> =>
-  fetch(`https://donelist.ga/feed/${category}?startDate=${startDate}&endDate=${endDate}`, {
+  fetch(`https://donelist.ga/api/feed/${category}?startDate=${startDate}&endDate=${endDate}`, {
     method: 'GET',
     headers: {
       'X-MID': '7777'
@@ -31,7 +31,7 @@ export const changeItemStatus = (
 ): Promise<{
   returnCode: '4002' | '0000';
 }> =>
-  fetch(`https://donelist.ga/feed`, {
+  fetch(`https://donelist.ga/api/feed`, {
     method: 'PUT',
     headers: {
       'X-MID': '7777',
