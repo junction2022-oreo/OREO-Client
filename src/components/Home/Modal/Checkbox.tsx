@@ -50,7 +50,7 @@ function Checkbox(props: Props) {
   const [checked, setChecked] = useState(selected);
 
   const handleClick = () => {
-    if (!possibleColList.includes(title.toLocaleUpperCase())) {
+    if (!possibleColList.includes(title)) {
       return;
     }
     const newChecked = !checked;
