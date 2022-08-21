@@ -69,10 +69,10 @@ function Column(props: Props) {
   }, [category, selectedDate]);
 
   async function fetchItems(categoryName: string) {
-    let [startDate, endDate] = ['20220819', '20220820'];
+    let [startDate, endDate] = ['20220820', '20220821'];
     if (selectedDate === 'weekly') {
-      startDate = '20220813';
-      endDate = '20220820';
+      startDate = '20220814';
+      endDate = '20220821';
     }
     const {
       info: { todoList, doneList }
