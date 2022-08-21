@@ -5,7 +5,7 @@ const getCategory = (): Promise<{
   fetch(`https://donelist.ga/api/category`, {
     method: 'GET',
     headers: {
-      'X-MID': '7777'
+      'X-MID': '5'
     }
   }).then((res) => res.json());
 

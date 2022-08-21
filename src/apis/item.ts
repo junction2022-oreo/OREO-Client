@@ -21,7 +21,7 @@ export const getItems = (
   fetch(`https://donelist.ga/api/feed/${category}?startDate=${startDate}&endDate=${endDate}`, {
     method: 'GET',
     headers: {
-      'X-MID': '7777'
+      'X-MID': '5'
     }
   }).then((res) => res.json());
 
@@ -34,7 +34,7 @@ export const changeItemStatus = (
   fetch(`https://donelist.ga/api/feed`, {
     method: 'PUT',
     headers: {
-      'X-MID': '7777',
+      'X-MID': '5',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
