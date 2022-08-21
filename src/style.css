@@ -3,7 +3,26 @@
    License: none (public domain)
 */
 
-/* @import './font.css'; */
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/font/SFPRODISPLAYREGULAR.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./assets/font/SFPRODISPLAYMEDIUM.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./assets/font/SFPRODISPLAYBOLD.otf') format('opentype');
+}
 
 html,
 body,
@@ -90,8 +109,7 @@ video {
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  /* //font-size: 100%; */
-  /* //font: inherit; */
+  font-family: 'SF Pro Display', sans-serif;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -134,3 +152,4 @@ input[type='text'],
 input[type='number'] {
   -webkit-appearance: none;
 }
+
