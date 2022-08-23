@@ -33,6 +33,7 @@ const Label = styled.label`
   border: 1px solid #b9b9b9;
   border-radius: 4px;
   margin-top: 8px;
+  cursor: pointer;
 
   img {
     display: none;
@@ -136,17 +137,17 @@ function Item(props: Props) {
   };
 
   return (
-    <Button type="button" onClick={handleClick}>
+    <Button type="button">
       <CheckboxWrapper>
-        <Checkbox type="checkbox" checked={status} onChange={() => {}} />
-        <Label className="checkbox-label">
+        <Checkbox type="checkbox" checked={status} />
+        <Label className="checkbox-label" onClick={onClick}>
           <img width={10} height={8.5} src={checkImage} alt="" />
         </Label>
       </CheckboxWrapper>
       <ProfileWrapper>
         <Profile src={imgUrl} />
       </ProfileWrapper>
-      <ContentWrapper>
+      <ContentWrapper onClick={handleClick}>
         <ContentHeader>
           <Name>{name}</Name>
           <Time>{dayjs(writeDate).format('MM DD HH:mm A')}</Time>
